@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"os"
 	"log"
 	"math/rand"
 	"net/http"
@@ -225,5 +226,11 @@ func main() {
 			}
 		}
 	})
-	r.Run(":1188") // listen and serve on 0.0.0.0:1188
+
+	port, ok := os.LookupEnv("PORT")
+	if ok {
+		r.Run(":" + port)
+	} else {
+		r.Run(":1188") // listen and serve on 0.0.0.0:1188
+	}
 }
